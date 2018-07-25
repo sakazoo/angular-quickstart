@@ -182,6 +182,35 @@ import { WingsComponent } from './wings.component';
       (change)="show4(i)">{{item.label}}
   </label><br />
   </ng-container>
+  <ng-container *ngFor="let item of data2; index as i">
+  <label>
+    <input type="checkbox" name="animal{{i}}"
+      [(ngModel)]="data2[i].selected"
+      [value]="item.value"
+      (change)="show5()">{{item.label}}
+  </label><br />
+  </ng-container>
+  <select name="animal" [(ngModel)]="selected" (change)="show6()">
+
+  <!--リストボックスの生成-->
+  <!--<select name="animal" size="3"
+    [(ngModel)]="selected" (change)="show()" multiple>-->
+    
+    <option value="">ペットを選択してください</option>
+    <option *ngFor="let item of data6"
+      [value]="item.value" [disabled]="item.disabled"
+      [selected]="item.value === selected">{{item.label}}</option>
+  </select>
+  <select name="animal" [(ngModel)]="selected7" (change)="show7()">
+  <option value="">ペットを選択してください</option>
+  <optgroup *ngFor="let group of keys(data7)"
+    label={{group}}>
+    <option *ngFor="let item of data7[group]"
+      [value]="item.value" [disabled]="item.disabled" 
+      [selected]="item.value === selected7">{{item.label}}
+    </option>
+  </optgroup>
+</select>
   </form>
   <!-- <pre>{{myForm.value | json}}</pre> -->
 
@@ -345,5 +374,57 @@ export class AppComponent implements OnInit, OnDestroy  {
   show4(i : number) {
     console.log('現在値（ラベル）：' + this.data[i].label);
     console.log('現在値（値）：' + this.selected);
+  }
+
+  data2 = [
+    { label: '犬', value: 'dog', selected: false },
+    { label: '猫', value: 'cat', selected: true },
+    { label: 'ハムスター', value: 'hamster', selected: true },
+    { label: '金魚', value: 'fish', selected: false },
+    { label: '亀', value: 'turtle', selected: false }
+  ];
+
+  show5() {
+    console.log(this.data);
+  }
+
+  selected = 'hamster';
+  data6 = [
+    { label: '犬', value: 'dog', disabled: false },
+    { label: '猫', value: 'cat', disabled: false },
+    { label: 'ハムスター', value: 'hamster', disabled: false },
+    { label: '金魚', value: 'fish', disabled: true },
+    { label: '亀', value: 'turtle', disabled: false }
+  ];
+
+  show6() {
+    console.log('現在値：' + this.selected);
+  }
+
+  selected7 = 'dog';
+  data7 = {
+    '哺乳類': [
+        { label: '犬', value: 'dog', disabled: false },
+        { label: '猫', value: 'cat', disabled: false },
+        { label: 'ハムスター', value: 'hamster', disabled: false },
+      ],
+    '魚類': [
+        { label: '金魚', value: 'fish', disabled: true },
+        { label: '鯉', value: 'carp', disabled: false },
+        { label: '熱帯魚', value: 'tropical fish', disabled: false },
+      ],
+    '爬虫類': [
+        { label: '亀', value: 'turtle', disabled: false },
+        { label: 'トカゲ', value: 'lizard', disabled: false },
+        { label: 'ヘビ', value: 'snake', disabled: false }
+      ]
+  };
+
+  keys(obj: Object) {
+    return Object.keys(obj);
+  }
+
+  show7() {
+    console.log('現在値：' + this.selected);
   }
 }
