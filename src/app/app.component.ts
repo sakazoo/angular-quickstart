@@ -12,7 +12,7 @@ import { WingsComponent } from './wings.component';
     広告バナー：<br />
     <ng-container *ngComponentOutlet="banner"></ng-container>
   </div>
-  <h1>Hello {{name}}!!!</h1>
+  <h1>Hello {{name3}}!!!</h1>
   <img [src]="image" width="128" height="128"/>
   <h1>age is {{member?.age}}</h1>
   <div [innerHTML]="safeMsg">リンク先：</div>
@@ -210,7 +210,10 @@ import { WingsComponent } from './wings.component';
       [selected]="item.value === selected7">{{item.label}}
     </option>
   </optgroup>
-</select>
+  </select>
+  <textarea cols="70" rows="5" name="tweet"
+  [(ngModel)]="tweet" (input)="setcolor()"></textarea>
+  <div [ngStyle]="myStyle">{{count}}</div>
   </form>
   <!-- <pre>{{myForm.value | json}}</pre> -->
 
@@ -221,8 +224,8 @@ import { WingsComponent } from './wings.component';
     .fore { color: Red; }
   `]
 })
-export class AppComponent implements OnInit, OnDestroy  { 
-  name = 'Angular';
+export class AppComponent implements OnInit, OnDestroy  {
+  name3: string = 'Angular';
   member = {
     name: 'sakazoo',
     age: 29
@@ -388,7 +391,7 @@ export class AppComponent implements OnInit, OnDestroy  {
     console.log(this.data);
   }
 
-  selected = 'hamster';
+  selected2 = 'hamster';
   data6 = [
     { label: '犬', value: 'dog', disabled: false },
     { label: '猫', value: 'cat', disabled: false },
@@ -426,5 +429,21 @@ export class AppComponent implements OnInit, OnDestroy  {
 
   show7() {
     console.log('現在値：' + this.selected);
+  }
+
+  max = 140;
+  tweet= ''; 
+  count = this.max;
+  myStyle = { color: '#00f', fontWeight: 'normal' };
+  
+  setcolor() {
+    this.count = this.max - this.tweet.length;
+    if (this.count > 10) {
+      this.myStyle = { color: '#00f', fontWeight: 'normal' }
+    } else if (this.count > 0) {
+      this.myStyle = { color: '#f0f', fontWeight: 'normal'  };
+    } else {
+      this.myStyle = { color: '#f00', fontWeight: 'bold' };
+    }
   }
 }
