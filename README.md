@@ -2,8 +2,13 @@
 
 ### 起動方法
 
-* `npm install` 
-* `npm start` 
+```
+$ npm start
+```
+
+```
+$ npm install
+```
 
 ### アクセス先
 http://localhost:3000/
